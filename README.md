@@ -34,6 +34,16 @@ documento `TIF_Propuesta_Intervencion_Sistemas_Informacion.docx`.
    sistema te avisa antes de exportar pero te permite continuar igual
    (por ejemplo, para compartir un borrador con tu director/a).
 
+## Modo oscuro
+
+El botón 🌙/☀️ de la barra superior alterna entre tema claro y oscuro.
+Por defecto, la app sigue el tema de tu sistema operativo (si Windows/tu
+navegador están en modo oscuro, arranca oscura); si preferís forzar uno
+en particular, el botón lo recuerda para la próxima vez que abras la
+página. La vista previa del documento (la "hoja" en formato APA) se
+mantiene siempre con fondo blanco, igual que en un procesador de texto,
+para que veas fielmente cómo va a quedar impreso.
+
 ## Fichas de lectura y trazabilidad de citas
 
 Desde el botón **📑 Fichas de lectura** de la barra superior podés abrir un
@@ -127,6 +137,7 @@ js/render-form.js          construcción del formulario dinámico
 js/document-model.js       arma el documento final (portada, capítulos, tablas, referencias)
 js/fichas.js                 fichas de lectura + cotejo heurístico de citas APA en el texto
 js/filebackup.js             respaldo automático en archivo local (File System Access API)
+js/theme.js                  modo oscuro / claro
 js/preview.js               convierte el documento a HTML con formato APA 7
 js/export-docx.js           genera el archivo .docx real (librería docx.js)
 vendor/docx.umd.min.js      librería de generación de DOCX (incluida localmente)

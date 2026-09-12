@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generador de TIF — Propuesta de Intervención</title>
+<script>
+  // Aplica el tema guardado (si el usuario forzó claro/oscuro) antes de
+  // pintar la página, para evitar el parpadeo de un tema incorrecto.
+  (function () {
+    try {
+      var t = localStorage.getItem('tif_theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* localStorage no disponible: se usa el tema del sistema */ }
+  })();
+</script>
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/apa.css">
 </head>
@@ -23,6 +33,7 @@
       <span class="progress-label" id="progressLabel">0% completo</span>
     </div>
     <div class="actions">
+      <button class="theme-toggle" id="btnThemeToggle" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
       <span id="saveStatus" style="font-size:0.75rem;color:var(--muted);align-self:center;"></span>
       <button class="btn-ghost" id="btnFileBackup" hidden>📁 Activar respaldo en archivo</button>
       <button class="btn-ghost" id="btnNuevo">Nuevo</button>
@@ -122,6 +133,7 @@
 <script src="js/document-model.js"></script>
 <script src="js/fichas.js"></script>
 <script src="js/filebackup.js"></script>
+<script src="js/theme.js"></script>
 <script src="js/preview.js"></script>
 <script src="js/export-docx.js"></script>
 <script src="js/app.js"></script>
