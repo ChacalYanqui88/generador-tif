@@ -1,0 +1,104 @@
+/* ============================================================================
+   apa.css
+   Estilos del documento en formato APA 7ª edición: se usan tanto para la
+   vista previa en pantalla (dentro de #previewRoot) como para la
+   impresión / exportación a PDF (ver @media print al final).
+   ========================================================================== */
+
+.apa-page {
+  background: #fff;
+  color: #111;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  line-height: 2;
+  max-width: 21.59cm;
+  margin: 0 auto;
+  padding: 2.54cm;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.apa-page p, .apa-page li { text-align: justify; }
+
+.apa-cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 22cm;
+  text-align: center;
+}
+.apa-cover p { margin: 0.2em 0; text-align: center; }
+.apa-cover-label { font-weight: bold; }
+.apa-cover-title { font-weight: bold; font-size: 14pt; margin: 1.2em 0; }
+.apa-cover-top, .apa-cover-middle, .apa-cover-bottom { margin: 1.5em 0; }
+
+.page-break { break-after: page; page-break-after: always; height: 0; }
+
+.apa-toc { margin-bottom: 1em; }
+.toc-note {
+  font-size: 10.5pt;
+  color: #555;
+  background: #f4f5f7;
+  border: 1px solid #e0e2e7;
+  border-radius: 6px;
+  padding: 0.6em 0.9em;
+  text-indent: 0;
+  text-align: left;
+  margin: 0 0 1.2em;
+}
+.toc-list { list-style: none; margin: 0; padding: 0; }
+.toc-list li { margin: 0 0 0.45em; }
+.toc-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  color: inherit;
+  text-decoration: none;
+}
+.toc-list a:hover .toc-text { text-decoration: underline; }
+.toc-leader {
+  flex: 1;
+  border-bottom: 1px dotted #999;
+  margin-bottom: 0.25em;
+}
+.toc-level-1 { font-weight: bold; margin-top: 0.7em; }
+.toc-level-2 { padding-left: 1.3em; font-size: 11.5pt; }
+.toc-level-3 { padding-left: 2.6em; font-size: 11pt; font-style: italic; }
+
+.apa-h1, .apa-h2, .apa-h3 { scroll-margin-top: 4.2rem; }
+.apa-h1 { font-size: 12pt; font-weight: bold; text-align: center; margin: 1.4em 0 0.8em; }
+.apa-h2 { font-size: 12pt; font-weight: bold; text-align: left; margin: 1.2em 0 0.6em; }
+.apa-h3 { font-size: 12pt; font-weight: bold; font-style: italic; text-align: left; margin: 1em 0 0.5em; }
+
+.apa-p { margin: 0 0 0.6em; text-indent: 1.27cm; }
+.apa-ul { margin: 0 0 0.8em 1.27cm; padding: 0; }
+.apa-ul li { margin-bottom: 0.3em; }
+
+.apa-ref { margin: 0 0 0.6em; padding-left: 1.27cm; text-indent: -1.27cm; text-align: left; }
+
+.apa-table-wrap { margin: 0.8em 0 1.4em; }
+.apa-table-caption { margin: 0 0 0.3em; text-align: left; }
+.apa-table { width: 100%; border-collapse: collapse; font-size: 11.5pt; }
+.apa-table thead th {
+  border-top: 1.2pt solid #000;
+  border-bottom: 1pt solid #000;
+  text-align: left;
+  padding: 0.25em 0.5em;
+  font-weight: bold;
+}
+.apa-table tbody td {
+  padding: 0.25em 0.5em;
+  border: none;
+  vertical-align: top;
+}
+.apa-table tbody tr:last-child td { border-bottom: 1.2pt solid #000; }
+.apa-table .empty-cell { color: #888; font-style: italic; text-align: center; }
+
+@media print {
+  .toc-note { display: none; }
+  body * { visibility: hidden; }
+  #previewRoot, #previewRoot * { visibility: visible; }
+  #previewRoot { position: absolute; left: 0; top: 0; width: 100%; }
+  .apa-page { box-shadow: none; margin: 0; max-width: none; padding: 0; }
+  @page { size: A4; margin: 2.54cm; }
+  .page-break { break-after: page; }
+}

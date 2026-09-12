@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de TIF — Propuesta de Intervención</title>
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/apa.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <header class="topbar">
+    <div class="brand">
+      <h1>📘 Generador de TIF</h1>
+      <div class="brand-meta">
+        <span class="brand-subtitle">Modalidad: Propuesta de Intervención · Formato APA 7</span>
+        <span class="brand-credits">Autor: Alejandro Cano · Modelo de plantilla propuesto por el Dr. Sergio Marcelo Puglieso</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <span class="progress-label" id="progressLabel">0% completo</span>
+    </div>
+    <div class="actions">
+      <span id="saveStatus" style="font-size:0.75rem;color:var(--muted);align-self:center;"></span>
+      <button class="btn-ghost" id="btnFileBackup" hidden>📁 Activar respaldo en archivo</button>
+      <button class="btn-ghost" id="btnNuevo">Nuevo</button>
+      <button class="btn-ghost" id="btnGuardarJson">💾 Guardar proyecto</button>
+      <button class="btn-ghost" id="btnAbrirJson">📂 Abrir proyecto</button>
+      <input type="file" id="fileInputJson" accept="application/json" hidden>
+      <button class="btn-secondary" id="btnVistaPrevia">👁 Vista previa</button>
+      <button class="btn-secondary" id="btnFichas">📑 Fichas de lectura</button>
+      <button class="btn-primary" id="btnExportarDocx">⬇ Exportar DOCX</button>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <nav class="sidebar">
+      <ul class="nav-list" id="navList"></ul>
+    </nav>
+
+    <main class="content" id="contentScroll">
+      <div class="content-inner">
+        <div id="formRoot"></div>
+        <div class="section-footer">
+          <button class="btn-secondary" id="btnPrev">← Anterior</button>
+          <button class="btn-primary" id="btnNext">Siguiente →</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ---------------- Vista previa / impresión a PDF ---------------- -->
+<div class="preview-overlay" id="previewOverlay" hidden>
+  <div class="preview-toolbar">
+    <strong>Vista previa del documento (formato APA 7)</strong>
+    <div class="actions">
+      <button class="btn-secondary" id="btnPreviewExportDocx">⬇ Exportar DOCX</button>
+      <button class="btn-primary" id="btnImprimirPdf">🖨 Imprimir / Guardar como PDF</button>
+      <button class="btn-ghost" id="btnCerrarPreview">✕ Cerrar</button>
+    </div>
+  </div>
+  <div id="previewRoot"></div>
+</div>
+
+<!-- ---------------- Fichas de lectura ---------------- -->
+<div class="preview-overlay" id="fichasOverlay" hidden>
+  <div class="preview-toolbar">
+    <strong>📑 Fichas de lectura</strong>
+    <div class="actions">
+      <button class="btn-ghost" id="btnCerrarFichas">✕ Cerrar</button>
+    </div>
+  </div>
+  <div id="fichasRoot" class="fichas-panel"></div>
+</div>
+
+<!-- ---------------- Respaldo en archivo local ---------------- -->
+<div class="modal-backdrop" id="fileBackupModal" hidden>
+  <div class="modal-box">
+    <h3>📁 Respaldo automático en archivo</h3>
+    <p style="font-size:0.85rem;color:var(--muted)">
+      Elegí un archivo en tu PC (por ejemplo, dentro de tu carpeta sincronizada de
+      Google Drive o OneDrive) y el sistema le va a ir escribiendo tu avance
+      automáticamente en cada autoguardado — sin volver a pedir permiso, sin
+      internet y sin necesidad de ninguna cuenta. Así, si cerrás la pestaña sin
+      querer, se corta la luz o falla la conexión, tenés siempre una copia
+      reciente en disco (y en la nube, si esa carpeta se sincroniza sola).
+    </p>
+    <p id="fileBackupStatus" style="font-size:0.85rem;margin:0.8rem 0;"></p>
+    <div class="modal-actions" style="justify-content:flex-start;flex-wrap:wrap;">
+      <button class="btn-primary btn-small" id="btnFbElegir">📂 Elegir/cambiar archivo…</button>
+      <button class="btn-secondary btn-small" id="btnFbReactivar" hidden>🔓 Reactivar permiso</button>
+      <button class="btn-ghost btn-small" id="btnFbDesactivar" hidden>Desactivar respaldo</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" id="btnFbCerrar">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ---------------- Modal de completitud ---------------- -->
+<div class="modal-backdrop" id="readinessModal" hidden>
+  <div class="modal-box">
+    <h3>⚠ El TIF todavía tiene campos incompletos</h3>
+    <p style="font-size:0.85rem;color:var(--muted)">Podés exportar igual un borrador, pero se recomienda completar lo siguiente antes de la entrega:</p>
+    <ul class="missing-list" id="missingList"></ul>
+    <div class="modal-actions">
+      <button class="btn-ghost" id="btnModalCancelar">Cancelar</button>
+      <button class="btn-secondary" id="btnModalIrAFaltantes">Ir al primer campo faltante</button>
+      <button class="btn-primary" id="btnModalExportarIgual">Exportar de todos modos</button>
+    </div>
+  </div>
+</div>
+
+<script src="vendor/docx.umd.min.js"></script>
+<script src="js/schema.js"></script>
+<script src="js/state.js"></script>
+<script src="js/validate.js"></script>
+<script src="js/render-form.js"></script>
+<script src="js/document-model.js"></script>
+<script src="js/fichas.js"></script>
+<script src="js/filebackup.js"></script>
+<script src="js/preview.js"></script>
+<script src="js/export-docx.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
